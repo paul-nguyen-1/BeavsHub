@@ -7,9 +7,11 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
-    "playwright":"npx playwright test apps/playwright"
+    "playwright": "npx playwright test apps/playwright",
+    "jest":"jest"
   },
   "devDependencies": {
+    "@nestjs/testing": "^10.4.13",
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.10.1",
     "prettier": "^3.4.2",
