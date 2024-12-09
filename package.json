@@ -7,7 +7,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky",
-    "playwright":"playwright test playwright"
+    "playwright":"npx playwright test apps/playwright"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
