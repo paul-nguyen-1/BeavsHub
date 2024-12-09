@@ -2,12 +2,12 @@ name: Jest Tests
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
-  test:
+  jest-job:
     runs-on: ubuntu-latest
 
     steps:
