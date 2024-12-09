@@ -5,10 +5,16 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky",
+    "playwright": "npx playwright test apps/playwright",
+    "jest":"jest"
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
+    "@nestjs/testing": "^10.4.13",
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1",
+    "prettier": "^3.4.2",
     "turbo": "^2.3.3",
     "typescript": "5.5.4"
   },
@@ -21,6 +27,20 @@
     "packages/*"
   ],
   "dependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10",
+    "playwright": "^1.49.0",
     "zod": "^3.23.8"
+  },
+  "lint-staged": {
+    "apps/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "packages/ui/**/*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   }
 }
