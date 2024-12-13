@@ -16,15 +16,16 @@ export class CourseService {
   }
 
   private async init() {
-    const fs = require('fs');
-    if (process.env.SHEETS_CREDENTIALS) {
-      const credentialsPath = '/sheets_credentials.json';
-      fs.writeFileSync(credentialsPath, process.env.SHEETS_CREDENTIALS);
-      process.env.GOOGLE_APPLICATION_CREDENTIALS = credentialsPath;
-    }
-
     const auth = new GoogleAuth({
-      keyFile: process.env.GOOGLE_API_CREDENTIALS,
+      credentials: {
+        type: process.env.SHEETS_CREDENTIALS_TYPE!,
+        project_id: process.env.SHEETS_CREDENTIALS_PROJECT_ID!,
+        private_key_id: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY_ID!,
+        private_key: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY!,
+        client_email: process.env.SHEETS_CREDENTIALS_CLIENT_EMAIL!,
+        client_id: process.env.SHEETS_CREDENTIALS_CLIENT_ID!,
+        universe_domain: process.env.SHEETS_CREDENTIALS_UNIVERSE_DOMAIN!,
+      },
       scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
     });
     const authClient = (await auth.getClient()) as OAuth2Client;
