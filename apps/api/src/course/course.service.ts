@@ -16,6 +16,13 @@ export class CourseService {
   }
 
   private async init() {
+    const fs = require('fs');
+    if (process.env.SHEETS_CREDENTIALS) {
+      const credentialsPath = '/sheets_credentials.json';
+      fs.writeFileSync(credentialsPath, process.env.SHEETS_CREDENTIALS);
+      process.env.GOOGLE_APPLICATION_CREDENTIALS = credentialsPath;
+    }
+
     const auth = new GoogleAuth({
       keyFile: process.env.GOOGLE_API_CREDENTIALS,
       scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
