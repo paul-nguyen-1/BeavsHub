@@ -19,11 +19,6 @@ jobs:
         with:
           node-version: "20.16.0"
 
-      - name: Set up Google Sheets credentials
-        env:
-          SHEETS_CREDENTIALS: ${{ secrets.SHEETS_CREDENTIALS }}
-        run: echo "${SHEETS_CREDENTIALS}" > sheets_credentials.json
-
       - name: Install dependencies
         run: npm install
 

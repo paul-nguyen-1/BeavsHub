@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { google, sheets_v4 } from 'googleapis';
 import { GoogleAuth, OAuth2Client } from 'google-auth-library';
+import * as fs from 'fs';
 
 /*
 Refer to this doc 
@@ -16,16 +17,26 @@ export class CourseService {
   }
 
   private async init() {
+    const config = {
+      type: process.env.SHEETS_CREDENTIALS_TYPE,
+      project_id: process.env.SHEETS_CREDENTIALS_PROJECT_ID,
+      private_key_id: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY_ID,
+      private_key: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY.replace(
+        /\\n/g,
+        '\n',
+      ),
+      client_email: process.env.SHEETS_CREDENTIALS_CLIENT_EMAIL,
+      client_id: process.env.SHEETS_CREDENTIALS_CLIENT_ID,
+      auth_uri: process.env.SHEETS_CREDENTIALS_AUTH_URI,
+      token_uri: process.env.SHEETS_CREDENTIALS_TOKEN_URI,
+      auth_provider_x509_cert_url:
+        process.env.SHEETS_CREDENTIALS_AUTH_PROVIDER_CERT_URL,
+      client_x509_cert_url: process.env.SHEETS_CREDENTIALS_CLIENT_CERT_URL,
+      universe_domain: process.env.SHEETS_CREDENTIALS_UNIVERSE_DOMAIN,
+    };
+
     const auth = new GoogleAuth({
-      credentials: {
-        type: process.env.SHEETS_CREDENTIALS_TYPE!,
-        project_id: process.env.SHEETS_CREDENTIALS_PROJECT_ID!,
-        private_key_id: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY_ID!,
-        private_key: process.env.SHEETS_CREDENTIALS_PRIVATE_KEY!,
-        client_email: process.env.SHEETS_CREDENTIALS_CLIENT_EMAIL!,
-        client_id: process.env.SHEETS_CREDENTIALS_CLIENT_ID!,
-        universe_domain: process.env.SHEETS_CREDENTIALS_UNIVERSE_DOMAIN!,
-      },
+      credentials: config,
       scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
     });
     const authClient = (await auth.getClient()) as OAuth2Client;
